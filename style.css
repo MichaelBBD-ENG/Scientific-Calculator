@@ -1,0 +1,277 @@
+:root{
+    --background-color: #21013d;
+    --primary-background-color-light: #8033CE;
+    --standard-blur: 100px;
+    --primary-text-color: #fff;
+    --secondary-text-color: #5f5f5f;
+    --secondary-text-color-50: #5f5f5f9f;
+    --secondary-text-color-30: #5f5f5f58;
+
+    --calculator-container: #c6c6c628;
+}
+
+/*scrollbars*/
+::-webkit-scrollbar { 
+    width: 6px; 
+    z-index: 9999;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    border-radius: 20px;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+    z-index: 9999;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: var(--secondary-text-color);
+    border-radius: 20px;
+    z-index: 9999;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-background-color);
+    z-index: 9999;
+}
+
+/* Handle on active */
+::-webkit-scrollbar-thumb:active {
+    background: var(--primary-background-color);
+    z-index: 9999;
+}
+
+body{
+    background-color: var(--background-color);
+    font-family: "Baloo Bhai 2", serif;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    color: var(--primary-text-color);
+}
+
+
+#globe1{
+    position: absolute;
+    width: 70rem;
+    height: 70rem;
+    filter: blur(var(--standard-blur));
+    z-index: -1;
+    margin-left: 80vw;
+    animation: globe1bounce 30s infinite;
+}
+
+/* make globe1 bounce up and down slowly using bezier curve */
+@keyframes globe1bounce{
+    0%, 100%{
+        transform: translateY(0);
+    }
+    50%{
+        transform: translateY(-300px);
+    }
+}
+
+#globe4{
+    position: absolute;
+    width: 70rem;
+    height: 70rem;
+    filter: blur(var(--standard-blur));
+    top: 60vh;
+    left: -20vw;
+    z-index: -1;
+    animation: globe4fullrotate 40s infinite;
+}
+
+/* make globe4 rotate slowly using bezier curve */
+@keyframes globe4fullrotate{
+    0%, 100%{
+        transform: translateY(-300px);
+    }
+    50%{
+        transform: translateY(-0px);
+    }
+}
+
+.calculator-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 31.9rem;
+}
+
+.result-container{
+    width: calc(100% - 2rem);
+    padding: 1rem;
+    border-radius: 25px;
+    background: var(--calculator-container);
+    border: 1px solid var(--secondary-text-color-50);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+h1{
+    font-size: 2rem;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: right;
+}
+
+#highlighted{
+    background: var(--primary-background-color-light);
+    padding: 0.5rem;
+    border-radius: 0.3rem;
+}
+
+#equation-guess{
+    margin-top: -1rem;
+    color: rgb(182, 182, 182);
+}
+
+#result{
+    margin-top: -2.5rem;
+}
+
+#history{
+    margin-top: -1.5rem;
+}
+
+.console-container{
+    width: calc(100% - 2rem);
+    padding: 1rem;
+    border-radius: 25px;
+    background: black;
+    border: 1px solid var(--secondary-text-color-50);
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h4{
+    font-size: 1rem;
+}
+
+p{
+    font-size: 1rem;
+    width: calc(100% - 2rem);
+    white-space: wrap;
+    text-wrap: wrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+    color: rgb(238, 89, 89);
+}
+
+.calculator{
+    display: grid;
+    /* allow 5 columns */
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 25px;
+    background: var(--calculator-container);
+    border: 1px solid var(--secondary-text-color-50);
+}
+
+button{
+    background-color: var(--secondary-text-color-30);
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 0.8rem;
+    cursor: default;
+    border-radius: 1rem;
+    transition: 0.3s transform ease-in-out;
+    color: var(--primary-text-color);
+    font-family: "Baloo Bhai 2", serif;
+}
+
+button:hover{
+    opacity: 0.8;
+}
+
+button:active{
+    transform: scale(0.97);
+}
+
+.important-button{
+    background: var(--primary-background-color-light);
+    box-shadow: 0px 0px 4px 4px rgba(0, 0, 0, 0.15);
+}
+
+.nop{
+    cursor: default;
+}
+
+.nop:hover{
+    transform: scale(1);
+}
+
+.nop:active{
+    transform: scale(1);
+}
+
+.history-modal-container{
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    background: #2222225e;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.history-modal{
+    width: 25rem;
+    height: 35rem;
+    background: var(--calculator-container);
+    backdrop-filter: blur(75px);
+    border-radius: 25px;
+    padding: 0.45rem;
+    padding-right: 0rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: scroll;
+    border: 1px auto var(--secondary-text-color-50);
+    box-shadow: 0px 0px 10px 10px rgba(0, 0, 0, 0.15);
+    overflow-x: hidden;
+}
+
+.history-object{
+    width: calc(100% - 2rem);
+    padding: 0.9rem;
+    border-radius: 1.1rem;
+    background: var(--secondary-text-color-30);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.3s transform ease-in-out;
+    margin-bottom: 0.45rem;
+}
+
+.history-object:hover{
+    opacity: 0.8;
+}
+
+.history-object:active{
+    transform: scale(0.97);
+}
+
+.history-object h3{
+    margin-top: -.05rem;
+    margin-bottom: -.05rem;
+}

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@400..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Calculator</title>
+</head>
+<body>
+    <div id="globe1">
+        <img src="https://raw.githubusercontent.com/waveyboym/portfolio-src-files/516772beb485895dde4ce5b31d0d881f31ec70ce/portfolio-src-code/src/assets/Vector1.svg" alt="globe">
+    </div>
+    <div id="globe4">
+        <img src="https://raw.githubusercontent.com/waveyboym/portfolio-src-files/516772beb485895dde4ce5b31d0d881f31ec70ce/portfolio-src-code/src/assets/Vector4.svg" alt="globe">
+    </div>
+    <div class="calculator-container">
+        <div class="result-container">
+            <h1 id="equation-guess">0</h1>
+            <h1 id="result">0</h1>
+            <img src="clock-backward.svg" alt="history" id="history" onclick="showHistory()">
+        </div>
+        <div class="console-container">
+            <h4>>_</h4>
+            <p id="error"></p>
+        </div>
+        <div class="calculator">
+            <button onclick="clearLocalStorage()">CE</button>
+            <button onclick="appendPie()">π</button>
+            <button onclick="appendEulersNumber()">e</button>
+            <button onclick="clearAll()">C</button>
+            <button onclick="backspace()">←</button>
+            <button onclick="appendSquared()">x²</button>
+            <button onclick="appendSquareRoot()">√</button>
+            <button onclick="appendAbs()">|x|</button>
+            <button onclick="appendExponent()">^</button>
+            <button onclick="appendModulus()">%</button>
+            <button onclick="appendSin()">sin</button>
+            <button onclick="appendLeftParenthesis()">(</button>
+            <button onclick="appendRightParenthesis()">)</button>
+            <button onclick="appendFactorial()">n!</button>
+            <button onclick="appendDivide()" class="important-button">/</button>
+            <button onclick="appendCos()">cos</button>
+            <button onclick="append7()">7</button>
+            <button onclick="append8()">8</button>
+            <button onclick="append9()">9</button>
+            <button onclick="appendMultiply()" class="important-button">x</button>
+            <button onclick="appendTan()">tan</button>
+            <button onclick="append4()">4</button>
+            <button onclick="append5()">5</button>
+            <button onclick="append6()">6</button>
+            <button onclick="appendSubtract()" class="important-button">-</button>
+            <button onclick="appendLog()">log</button>
+            <button onclick="append1()">1</button>
+            <button onclick="append2()">2</button>
+            <button onclick="append3()">3</button>
+            <button onclick="appendAdd()" class="important-button">+</button>
+            <button onclick="appendLn()">ln</button>
+            <button onclick="appendDegree()">°</button>
+            <button onclick="append0()">0</button>
+            <button onclick="appendDot()">.</button>
+            <button onclick="takeStringAndPerformShuntingYardAlgorithm()" class="important-button">=</button>
+        </div>
+    </div>
+    <div class="history-modal-container" id="history-modal-container">
+        <div class="history-modal" id="history-modal">
+        </div>
+    </div>
+</body>
+<script src="ui.js"></script>
+<script src="calculator.js"></script>
+</html>
