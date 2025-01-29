@@ -71,7 +71,7 @@ class Equation {
 let historicalEquations = [];
 let selectedHSIndex = -1;
 let equation = new Equation();
-let selectedArrowIndex = -2;
+//let selectedArrowIndex = -2;
 
 window.onload = function(){
     let currentResult = localStorage.getItem('currentResult');
@@ -133,14 +133,26 @@ window.onload = function(){
             case "^":
                 appendExponent();
                 break;
-            case "ArrowLeft":
-                selectedArrowIndex -= 1;
+            /*case "ArrowLeft":
+                if(selectedArrowIndex === -2){
+                    selectedArrowIndex = equation.length() - 1;
+                } else if(selectedArrowIndex - 1 >= 0){
+                    selectedArrowIndex -= 1;
+                } else {
+                    break;
+                }
                 updateUI(null, equation.toString());
                 break;
             case "ArrowRight":
-                selectedArrowIndex += 1;
+                if(selectedArrowIndex === -2){
+                    selectedArrowIndex = equation.length() - 1;
+                } else if(selectedArrowIndex + 1 < equation.length() - 1){
+                    selectedArrowIndex += 1;
+                } else{
+                    break;
+                }
                 updateUI(null, equation.toString());
-                break;
+                break;*/
             case "ArrowUp":
                 if (selectedHSIndex === -1) {
                     selectedHSIndex = historicalEquations.length - 1;
@@ -187,28 +199,28 @@ function updateUI(error, result) {
         }
         document.getElementById('error').style.visibility = 'hidden';
         document.getElementById('error').innerText = "";
-        /*if(selectedArrowIndex > result.length - 1){
-            // add span tag to highlight the last index
-            let lastChar = result[result.length - 1];
-            document.getElementById('result').innerText = result.substring(0, result.length - 1) + "<span class='highlighted'>" + lastChar + "</span>";
-        } else if(selectedArrowIndex === -1){
-            // add span tag to highlight the first index
-            let firstChar = result[0];
-            document.getElementById('result').innerText = "<span class='highlighted'>" + firstChar + "</span>" + result.substring(1);
-        } else if(selectedArrowIndex >= 0 && selectedArrowIndex < result.length - 1){
-            // add span tag to highlight the selected index
+        /*if(selectedArrowIndex !== -2){
             let selectedChar = result[selectedArrowIndex];
-            document.getElementById('result').innerText = result.substring(0, selectedArrowIndex) + "<span class='highlighted'>" + selectedChar + "</span>" + result.substring(selectedArrowIndex + 1);
-        } else{*/
-            document.getElementById('result').innerText = result;
-        //}
+            let startIndex = selectedArrowIndex - 28;
+            if(startIndex >= 0){
+                document.getElementById('result').innerHTML = result.substring(startIndex, selectedArrowIndex - 1) 
+                + "<span class='highlighted'>" + selectedChar + "</span>";
+            } else{
+                document.getElementById('result').innerHTML = result.substring(0, selectedArrowIndex - 1) 
+                + "<span class='highlighted'>" + selectedChar + "</span>" 
+                + result.substring(selectedArrowIndex + 1, selectedArrowIndex + Math.abs(startIndex));
+            }
+        } else{
+        }*/
+        document.getElementById('result').innerText = result;
         localStorage.setItem('currentResult', result);
         localStorage.setItem('equation', JSON.stringify(equation.getTokens()));
 
         let eq = tryToFindAnEqThatIncludes(result);
 
         if(eq){
-            document.getElementById('equation-guess').innerText = eq.toString().replace(/,/g, "");
+            // always get last 28 characters
+            document.getElementById('equation-guess').innerText = eq.toString().replace(/,/g, "").substring(eq.length - 28);
         } else{
             document.getElementById('equation-guess').innerText = "0";
         }
@@ -268,7 +280,7 @@ function isPreviousOperator(){
             data.includes(TokenType.Multiplication) || 
             data.includes(TokenType.Divide) || 
             data.includes(TokenType.Modulus) || 
-            data.includes(tokenType.Exponent);
+            data.includes(TokenType.Exponent);
 }
 
 function appendPie(){
@@ -297,12 +309,12 @@ function clearAll(){
 }
 
 function backspace(){
-    if(selectedArrowIndex !== -2){
+    /*if(selectedArrowIndex !== -2){
         equation.remove(selectedArrowIndex);
         selectedArrowIndex -= 1;
         updateUI(null, equation.toString());
         return;
-    }
+    }*/
     if(isNumber(equation.get(equation.tokens.length - 1)) || isPreviousADot()){
         equation.removeLastCharacter(equation.tokens.length - 1);
     } else {
@@ -598,6 +610,11 @@ function showHistory(){
     let historyModal = document.getElementById('history-modal-container');
     let historyList = document.getElementById('history-modal');
     historyList.innerHTML = "";
+    if(historicalEquations.length === 0){
+        updateUI("No history found, perhaps try entering some equations", equation.toString());
+        return;
+    }
+
     historicalEquations.forEach((eq) => {
         let div = document.createElement('div');
         div.className = 'history-object';
